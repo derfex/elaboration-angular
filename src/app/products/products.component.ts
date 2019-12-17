@@ -4,7 +4,10 @@ import products from './products.data';
 interface IProductGridViewModel {
   id: number;
   name: string;
-  group: string;
+  parent: {
+    id: number;
+    name: string;
+  };
   price: number;
   selected: boolean;
 }

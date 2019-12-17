@@ -13,7 +13,10 @@ const products = new ProductsModel();
   .forEach(item => {
     products.addProduct({
       name: item[0],
-      group: item[1],
+      parent: {
+        id: 1,
+        name: item[1],
+      },
       price: item[2],
     });
   });
