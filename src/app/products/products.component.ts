@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import products from './products.data';
+
+interface IProductGridViewModel {
+  id: number;
+  name: string;
+  group: string;
+  price: number;
+  selected: boolean;
+}
 
 @Component({
   selector: 'app-products',
@@ -6,12 +15,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./products.component.sass'],
 })
 export class ProductsComponent implements OnInit {
-  products = [];
+  products: IProductGridViewModel[] = [];
 
   constructor() {
   }
 
   ngOnInit() {
+    this.products = products
+      .map(item => ({
+        ...item,
+        selected: false,
+      }));
   }
 
   getProducts() {
