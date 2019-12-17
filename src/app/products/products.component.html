@@ -12,7 +12,7 @@
   <tr *ngFor="let item of getProducts(); let i = index">
     <td>{{ i + 1 }}</td>
     <td>{{ item.name }}</td>
-    <td>{{ item.group }}</td>
+    <td>{{ item.parent.name }}</td>
     <td>{{ item.price }}</td>
     <td>
       <input
