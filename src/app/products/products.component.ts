@@ -1,5 +1,5 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import products from './products.data';
 
 interface IProductGridViewModel {
   id: number;
@@ -20,15 +20,23 @@ interface IProductGridViewModel {
 export class ProductsComponent implements OnInit {
   products: IProductGridViewModel[] = [];
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
-    this.products = products
-      .map(item => ({
-        ...item,
-        selected: false,
-      }));
+    this.http.get('assets/products.json')
+      .subscribe(
+        (data: any[]) => {
+          this.products = data
+            .map(item => ({
+              ...item,
+              selected: false,
+            }));
+        },
+        error => {
+          throw error;
+        },
+      );
   }
 
   getProducts() {
