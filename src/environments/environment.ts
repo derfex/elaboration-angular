@@ -2,8 +2,16 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const root = 'https://ssdev.superagent.ru/TestApp/';
+
 export const environment = {
   production: false,
+  API: {
+    root,
+    products: {
+      getAll: root + 'Values/GetAll',
+    },
+  },
 };
 
 /*

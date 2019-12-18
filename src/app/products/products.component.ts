@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 interface IProductGridViewModel {
   id: number;
@@ -24,7 +25,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get('assets/products.json')
+    this.http.get(environment.API.products.getAll)
       .subscribe(
         (data: any[]) => {
           this.products = data
