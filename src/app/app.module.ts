@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  MatButtonModule,
   MatCheckboxModule,
   MatTableModule,
 } from '@angular/material';
@@ -23,6 +24,7 @@ import { ShopComponent } from './shop/shop.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    MatButtonModule,
     MatCheckboxModule,
     MatTableModule,
   ],

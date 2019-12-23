@@ -62,4 +62,9 @@ export class ProductsComponent implements OnInit {
     }
     return `${ this.selection.isSelected(row) ? 'deselect' : 'select' } row ${ row.id + 1 }`;
   }
+
+  // Public methods.
+  get selected() {
+    return this.selection.selected;
+  }
 }

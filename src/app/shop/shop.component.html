@@ -1,3 +1,12 @@
 <div class="table-container">
-  <app-products></app-products>
+  <app-products #products></app-products>
+</div>
+<div class="button-container">
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="addToCart(products.selected)"
+  >
+    Add to cart
+  </button>
 </div>
