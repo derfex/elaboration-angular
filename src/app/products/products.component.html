@@ -42,7 +42,7 @@
   <!-- Parent Column -->
   <ng-container matColumnDef="parent">
     <mat-header-cell *matHeaderCellDef>Group</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.parent.name }}</mat-cell>
+    <mat-cell *matCellDef="let element">{{ element?.parent?.name }}</mat-cell>
   </ng-container>
 
   <!-- Price Column -->
