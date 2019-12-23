@@ -10,7 +10,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+import { ApiService } from './shared/services/api.service';
 import { ProductsComponent } from './products/products.component';
+import { ProductsService } from './products/products.service';
 import { ShopComponent } from './shop/shop.component';
 
 @NgModule({
@@ -28,7 +30,10 @@ import { ShopComponent } from './shop/shop.component';
     MatCheckboxModule,
     MatTableModule,
   ],
-  providers: [],
+  providers: [
+    ApiService,
+    ProductsService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

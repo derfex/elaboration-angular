@@ -1,5 +1,9 @@
 <div class="table-container">
-  <app-products #products></app-products>
+  <app-products
+    #products
+    [dataSource]="products"
+  >
+  </app-products>
 </div>
 <div class="button-container">
   <button
