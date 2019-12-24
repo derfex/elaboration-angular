@@ -6,15 +6,7 @@ import {
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
-interface IProductTableViewModel {
-  id: number;
-  name: string;
-  parent: {
-    id: number;
-    name: string;
-  };
-  price: number;
-}
+import { IProductTableViewModel } from './products-table-view-model.interface';
 
 @Component({
   selector: 'app-products',
