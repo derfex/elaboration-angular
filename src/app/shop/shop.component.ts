@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { IProductTableViewModel } from 'src/app/products/products-table-view-model.interface';
 import productsData from 'src/app/products/products.data';
 
 @Component({
@@ -8,7 +9,7 @@ import productsData from 'src/app/products/products.data';
   styleUrls: ['./shop.component.sass'],
 })
 export class ShopComponent {
-  private products: [] = productsData;
+  private products: IProductTableViewModel[] = productsData;
 
   constructor() {
   }
