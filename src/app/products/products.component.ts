@@ -1,8 +1,10 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { environment } from 'src/environments/environment';
 
 interface IProductTableViewModel {
   id: number;
@@ -19,32 +21,23 @@ interface IProductTableViewModel {
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.sass'],
 })
-export class ProductsComponent implements OnInit {
-  dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
-  displayedColumns: string[] = ['select', 'number', 'name', 'parent', 'price'];
-  selection = new SelectionModel<IProductTableViewModel>(true, []);
+export class ProductsComponent {
+  private itemsPrivate: IProductTableViewModel[] = [];
+  private dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
+  private displayedColumns: string[] = ['select', 'number', 'name', 'parent', 'price'];
+  private selection = new SelectionModel<IProductTableViewModel>(true, []);
 
-  constructor(private http: HttpClient) {
+  @Input()
+  set items(items: IProductTableViewModel[]) {
+    this.itemsPrivate = items;
+    this.dataSource = new MatTableDataSource<IProductTableViewModel>(items);
   }
 
-  ngOnInit() {
-    this.http.get(environment.API.products.getAll)
-      .subscribe(
-        (data: IProductTableViewModel[]) => {
-          data.forEach(item => {
-            if (!item.parent) {
-              item.parent = {
-                id: null,
-                name: '—',
-              };
-            }
-          });
-          this.dataSource = new MatTableDataSource<IProductTableViewModel>(data);
-        },
-        error => {
-          throw error;
-        },
-      );
+  get items(): IProductTableViewModel[] {
+    return this.itemsPrivate;
+  }
+
+  constructor(private http: HttpClient) {
   }
 
   // Whether the number of selected elements matches the total number of rows.
