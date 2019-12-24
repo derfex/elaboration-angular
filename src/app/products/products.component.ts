@@ -1,46 +1,58 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 
-interface IProductGridViewModel {
-  id: number;
-  name: string;
-  parent: {
-    id: number;
-    name: string;
-  };
-  price: number;
-  selected: boolean;
-}
+import { IProductTableViewModel } from './products-table-view-model.interface';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.sass'],
 })
-export class ProductsComponent implements OnInit {
-  products: IProductGridViewModel[] = [];
+export class ProductsComponent {
+  private itemsPrivate: IProductTableViewModel[] = [];
+  private dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
+  private displayedColumns: string[] = ['select', 'number', 'name', 'parent', 'price'];
+  private selection = new SelectionModel<IProductTableViewModel>(true, []);
+
+  @Input()
+  set items(items: IProductTableViewModel[]) {
+    this.itemsPrivate = items;
+    this.dataSource = new MatTableDataSource<IProductTableViewModel>(items);
+  }
+
+  get items(): IProductTableViewModel[] {
+    return this.itemsPrivate;
+  }
 
   constructor(private http: HttpClient) {
   }
 
-  ngOnInit() {
-    this.http.get(environment.API.products.getAll)
-      .subscribe(
-        (data: any[]) => {
-          this.products = data
-            .map(item => ({
-              ...item,
-              selected: false,
-            }));
-        },
-        error => {
-          throw error;
-        },
-      );
+  // Whether the number of selected elements matches the total number of rows.
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
   }
 
-  getProducts() {
-    return this.products;
+  // Selects all rows if they are not all selected; otherwise clear selection.
+  masterToggle() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
+      this.dataSource.data.forEach(row => this.selection.select(row));
+    }
+  }
+
+  // The label for the checkbox on the passed row.
+  checkboxLabel(row?: IProductTableViewModel): string {
+    if (!row) {
+      return `${ this.isAllSelected() ? 'select' : 'deselect' } all`;
+    }
+    return `${ this.selection.isSelected(row) ? 'deselect' : 'select' } row ${ row.id + 1 }`;
   }
 }
