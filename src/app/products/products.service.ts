@@ -15,7 +15,15 @@ export class ProductsService {
   getAll() {
     this.apiService.get(environment.API.products.getAll)
       .subscribe(
-        response => {
+        (response: any[]) => {
+          response.forEach(item => {
+            if (!item.parent) {
+              item.parent = {
+                id: null,
+                name: '—',
+              };
+            }
+          });
           this.products = response;
         },
         error => {
