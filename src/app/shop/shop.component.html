@@ -1,8 +1,8 @@
 <div class="table-container">
   <div class="table-container__scrollable">
     <app-products
-      #products
-      [dataSource]="products"
+      #productsComponent
+      [items]="products"
     >
     </app-products>
   </div>
@@ -11,7 +11,7 @@
   <button
     mat-raised-button
     color="accent"
-    (click)="addToCart(products.selected)"
+    (click)="addToCart(productsComponent.selected)"
   >
     Add to cart
   </button>

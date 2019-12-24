@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import productsData from 'src/app/products/products.data';
 import { ProductsService } from 'src/app/products/products.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ProductsService } from 'src/app/products/products.service';
   styleUrls: ['./shop.component.sass'],
 })
 export class ShopComponent {
-  private products = [];
+  private products: [] = productsData;
 
   constructor(private productsService: ProductsService) {
     setTimeout(() => {
