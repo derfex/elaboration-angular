@@ -11,12 +11,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+import { CartComponent } from './cart/cart.component';
 import { ProductsComponent } from './products/products.component';
 import { ShopComponent } from './shop/shop.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    CartComponent,
     ProductsComponent,
     ShopComponent,
   ],
