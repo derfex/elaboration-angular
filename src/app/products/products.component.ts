@@ -1,5 +1,4 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { HttpClient } from '@angular/common/http';
 import {
   Component,
   Input,
@@ -14,6 +13,7 @@ import { IProductTableViewModel } from './products-table-view-model.interface';
   styleUrls: ['./products.component.sass'],
 })
 export class ProductsComponent {
+  // region ## Properties
   private itemsPrivate: IProductTableViewModel[] = [];
   private dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
   private displayedColumns: string[] = ['select', 'number', 'name', 'parent', 'price'];
@@ -29,18 +29,19 @@ export class ProductsComponent {
     return this.itemsPrivate;
   }
 
-  constructor(private http: HttpClient) {
-  }
+  // endregion ## Properties
+
+  // region ## Methods
 
   // Whether the number of selected elements matches the total number of rows.
-  isAllSelected() {
+  private isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
   // Selects all rows if they are not all selected; otherwise clear selection.
-  masterToggle() {
+  private masterToggle() {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else {
@@ -49,10 +50,21 @@ export class ProductsComponent {
   }
 
   // The label for the checkbox on the passed row.
-  checkboxLabel(row?: IProductTableViewModel): string {
+  private checkboxLabel(row?: IProductTableViewModel): string {
     if (!row) {
       return `${ this.isAllSelected() ? 'select' : 'deselect' } all`;
     }
     return `${ this.selection.isSelected(row) ? 'deselect' : 'select' } row ${ row.id + 1 }`;
   }
+
+
+  public get selected(): IProductTableViewModel[] {
+    return this.selection.selected;
+  }
+
+  public clearSelection(): void {
+    this.selection.clear();
+  }
+
+  // endregion ## Methods
 }
