@@ -57,5 +57,14 @@ export class ProductsComponent {
     return `${ this.selection.isSelected(row) ? 'deselect' : 'select' } row ${ row.id + 1 }`;
   }
 
+
+  public get selected(): IProductTableViewModel[] {
+    return this.selection.selected;
+  }
+
+  public clearSelection(): void {
+    this.selection.clear();
+  }
+
   // endregion ## Methods
 }
