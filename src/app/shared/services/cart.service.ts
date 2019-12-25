@@ -35,4 +35,15 @@ export class CartService {
       keys,
     });
   }
+
+  public deleteProductByID(id) {
+    const value = this.subject.getValue();
+    const items = value.items.filter(item => item.id !== id);
+    const keys = value.keys;
+    keys.delete(id);
+    this.subject.next({
+      items,
+      keys,
+    });
+  }
 }
