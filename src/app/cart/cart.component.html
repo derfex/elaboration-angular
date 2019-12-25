@@ -5,6 +5,25 @@
   <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
 
+  <!-- Delete Column -->
+  <ng-container matColumnDef="delete">
+    <mat-header-cell *matHeaderCellDef>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button
+        mat-icon-button
+        (click)="deleteItem(row.id)"
+        title="Delete item"
+      >
+        <mat-icon
+          color="warn"
+        >
+          delete
+        </mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
   <!-- № Column -->
   <ng-container matColumnDef="number">
     <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>

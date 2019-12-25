@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCheckboxModule,
+  MatIconModule,
   MatTableModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
@@ -26,6 +27,7 @@ import { ShopComponent } from './shop/shop.component';
     HttpClientModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatIconModule,
     MatTableModule,
   ],
   providers: [],
