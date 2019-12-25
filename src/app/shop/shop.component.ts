@@ -13,7 +13,9 @@ import productsData from 'src/app/products/products.data';
   styleUrls: ['./shop.component.sass'],
 })
 export class ShopComponent implements OnInit {
+  // Note: `productsData` will changed to data from the `productsService`.
   private products: IProductTableViewModel[] = productsData;
+  private productsInList: IProductTableViewModel[] = productsData;
 
   constructor(
     private productsService: ProductsService,
@@ -25,6 +27,7 @@ export class ShopComponent implements OnInit {
       .subscribe(
         (data: IProductTableViewModel[]) => {
           this.products = data;
+          this.productsInList = data;
         },
         error => {
           throw error;
