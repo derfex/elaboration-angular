@@ -18,17 +18,3 @@ export class ProductsModel {
     return this.items;
   }
 }
-
-export class ProductModel {
-  id;
-  name;
-  group;
-  price;
-
-  constructor({id, name, group, price}) {
-    this.id = id;
-    this.name = name;
-    this.group = group;
-    this.price = price;
-  }
-}

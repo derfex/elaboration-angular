@@ -2,30 +2,27 @@
   [dataSource]="dataSource"
   class="mat-elevation-z8"
 >
-  <!-- Checkbox Column -->
-  <ng-container matColumnDef="select">
-    <mat-header-cell *matHeaderCellDef>
-      <mat-checkbox
-        (change)="$event ? masterToggle() : null"
-        [checked]="selection.hasValue() && isAllSelected()"
-        [indeterminate]="selection.hasValue() && !isAllSelected()"
-        [aria-label]="checkboxLabel()"
-      >
-      </mat-checkbox>
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <mat-checkbox
-        (click)="$event.stopPropagation()"
-        (change)="$event ? selection.toggle(row) : null"
-        [checked]="selection.isSelected(row)"
-        [aria-label]="checkboxLabel(row)"
-      >
-      </mat-checkbox>
-    </mat-cell>
-  </ng-container>
-
   <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Delete Column -->
+  <ng-container matColumnDef="delete">
+    <mat-header-cell *matHeaderCellDef>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button
+        mat-icon-button
+        (click)="deleteItem(row.id)"
+        title="Delete item"
+      >
+        <mat-icon
+          color="warn"
+        >
+          delete
+        </mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
 
   <!-- № Column -->
   <ng-container matColumnDef="number">
