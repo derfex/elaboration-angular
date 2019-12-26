@@ -7,5 +7,8 @@ export const environment = {
     products: {
       getAll: root + 'Values/GetAll',
     },
+    categories: {
+      getAll: root + 'Values/GetParents',
+    },
   },
 };

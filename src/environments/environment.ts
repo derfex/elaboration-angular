@@ -11,6 +11,9 @@ export const environment = {
     products: {
       getAll: 'assets/products.json',
     },
+    categories: {
+      getAll: 'assets/product-categories.json',
+    },
   },
 };
 
