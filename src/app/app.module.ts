@@ -5,6 +5,7 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatIconModule,
+  MatSortModule,
   MatTableModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
@@ -30,6 +31,7 @@ import { ShopComponent } from './shop/shop.component';
     MatButtonModule,
     MatCheckboxModule,
     MatIconModule,
+    MatSortModule,
     MatTableModule,
   ],
   providers: [],

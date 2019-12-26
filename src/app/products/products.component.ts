@@ -2,7 +2,12 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {
   Component,
   Input,
+  ViewChild,
 } from '@angular/core';
+import {
+  MatSort,
+  Sort,
+} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { IProductTableViewModel } from './products-table-view-model.interface';
@@ -29,10 +34,34 @@ export class ProductsComponent {
     return this.itemsPrivate;
   }
 
+  @ViewChild(MatSort, {static: false})
+  sort: MatSort;
+
   // endregion ## Properties
 
   // region ## Methods
+  private sortData(sort: Sort) {
+    const data = this.itemsPrivate.slice();
+    if (!sort.active || sort.direction === '') {
+      this.dataSource = new MatTableDataSource<IProductTableViewModel>(data);
+      return;
+    }
 
+    data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name':
+          return compare(a.name, b.name, isAsc);
+        case 'price':
+          return compare(a.price, b.price, isAsc);
+        default:
+          return 0;
+      }
+    });
+    this.dataSource = new MatTableDataSource<IProductTableViewModel>(data);
+  }
+
+  // region ### Selection
   // Whether the number of selected elements matches the total number of rows.
   private isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -66,5 +95,10 @@ export class ProductsComponent {
     this.selection.clear();
   }
 
+  // endregion ### Selection
   // endregion ## Methods
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
