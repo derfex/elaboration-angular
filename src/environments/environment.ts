@@ -9,7 +9,7 @@ export const environment = {
   API: {
     root,
     products: {
-      getAll: root + 'Values/GetAll',
+      getAll: 'assets/products.json',
     },
   },
 };
