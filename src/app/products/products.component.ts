@@ -23,6 +23,7 @@ export class ProductsComponent {
   private dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
   private displayedColumns: string[] = ['select', 'number', 'name', 'parent', 'price'];
   private selection = new SelectionModel<IProductTableViewModel>(true, []);
+  private filterPrivate: number = null;
 
   @Input()
   set items(items: IProductTableViewModel[]) {
@@ -34,10 +35,26 @@ export class ProductsComponent {
     return this.itemsPrivate;
   }
 
+  @Input()
+  set filter(filter: number) {
+    this.filterPrivate = filter;
+    this.dataSource.filter = filter ? filter + '' : '';
+  }
+
+  get filter(): number {
+    return this.filterPrivate;
+  }
+
   @ViewChild(MatSort, {static: false})
   sort: MatSort;
 
   // endregion ## Properties
+
+  constructor() {
+    this.dataSource.filterPredicate = (data, filter) => (
+      data.parent.id === +filter
+    );
+  }
 
   // region ## Methods
   private sortData(sort: Sort) {
