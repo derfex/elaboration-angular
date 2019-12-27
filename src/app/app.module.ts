@@ -4,7 +4,10 @@ import { FormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCheckboxModule,
+  MatFormFieldModule,
   MatIconModule,
+  MatSelectModule,
+  MatSortModule,
   MatTableModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { CartComponent } from './cart/cart.component';
+import { CategoriesSelectComponent } from './shared/components/categories-select/categories-select.component';
 import { ProductsComponent } from './products/products.component';
 import { ShopComponent } from './shop/shop.component';
 
@@ -19,6 +23,7 @@ import { ShopComponent } from './shop/shop.component';
   declarations: [
     AppComponent,
     CartComponent,
+    CategoriesSelectComponent,
     ProductsComponent,
     ShopComponent,
   ],
@@ -29,7 +34,10 @@ import { ShopComponent } from './shop/shop.component';
     HttpClientModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatFormFieldModule,
     MatIconModule,
+    MatSelectModule,
+    MatSortModule,
     MatTableModule,
   ],
   providers: [],

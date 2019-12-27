@@ -1,8 +1,13 @@
+<div class="button-container">
+  <app-categories-select #categoriesSelectComponent>
+  </app-categories-select>
+</div>
 <div class="table-container">
   <div class="table-container__scrollable">
     <app-products
       #productsComponent
       [items]="productsInList"
+      [filter]="categoriesSelectComponent.selected"
     >
     </app-products>
   </div>
