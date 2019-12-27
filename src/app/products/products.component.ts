@@ -27,7 +27,7 @@ export class ProductsComponent {
   @Input()
   set items(items: IProductTableViewModel[]) {
     this.itemsPrivate = items;
-    this.dataSource = new MatTableDataSource<IProductTableViewModel>(items);
+    this.dataSource.data = items;
   }
 
   get items(): IProductTableViewModel[] {
@@ -43,7 +43,7 @@ export class ProductsComponent {
   private sortData(sort: Sort) {
     const data = this.itemsPrivate.slice();
     if (!sort.active || sort.direction === '') {
-      this.dataSource = new MatTableDataSource<IProductTableViewModel>(data);
+      this.dataSource.data = data;
       return;
     }
 
@@ -58,7 +58,7 @@ export class ProductsComponent {
           return 0;
       }
     });
-    this.dataSource = new MatTableDataSource<IProductTableViewModel>(data);
+    this.dataSource.data = data;
   }
 
   // region ### Selection
