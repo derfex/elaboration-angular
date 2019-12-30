@@ -10,7 +10,7 @@ import {
 } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { IProductTableViewModel } from './products-table-view-model.interface';
+import { IProductTableViewModel } from './shared/product-table-view.model';
 
 @Component({
   selector: 'app-products',

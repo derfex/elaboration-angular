@@ -17,7 +17,7 @@ function transformProduct(product) {
 @Injectable({
   providedIn: 'root',
 })
-export class ProductsService {
+export class ProductsHTTPService {
   constructor(private apiService: APIService) {
   }
 

@@ -3,7 +3,7 @@ import {
   BehaviorSubject,
 } from 'rxjs';
 
-import { IProductTableViewModel } from 'src/app/products/products-table-view-model.interface';
+import { IProductTableViewModel } from 'src/app/shop/products/shared/product-table-view.model';
 
 interface ItemsState {
   items: IProductTableViewModel[];

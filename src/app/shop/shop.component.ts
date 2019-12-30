@@ -6,9 +6,9 @@ import {
 import { Subscription } from 'rxjs';
 
 import { CartService } from 'src/app/shared/services/cart.service';
-import { ProductsService } from 'src/app/products/products.service';
-import { IProductTableViewModel } from 'src/app/products/products-table-view-model.interface';
-import productsData from 'src/app/products/products.data';
+import { ProductsHTTPService } from 'src/app/shop/products/services-implementation/products-http/products-http.service';
+import { IProductTableViewModel } from './products/shared/product-table-view.model';
+import productsData from 'src/app/shop/products/services-implementation/products-local/products.data';
 
 @Component({
   selector: 'app-shop',
@@ -28,7 +28,7 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
-    private productsService: ProductsService,
+    private productsService: ProductsHTTPService,
   ) {
   }
 
