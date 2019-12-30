@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { CartService } from 'src/app/shared/services/cart.service';
+import { CartService } from './cart/shared/cart.service';
 import { ProductsHTTPService } from 'src/app/shop/products/services-implementation/products-http/products-http.service';
 import { IProductTableViewModel } from './products/shared/product-table-view.model';
 import productsData from 'src/app/shop/products/services-implementation/products-local/products.data';

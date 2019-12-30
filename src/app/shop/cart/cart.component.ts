@@ -7,7 +7,7 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 
-import { CartService } from 'src/app/shared/services/cart.service';
+import { CartService } from './shared/cart.service';
 import { IProductTableViewModel } from 'src/app/shop/products/shared/product-table-view.model';
 
 @Component({
