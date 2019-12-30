@@ -6,7 +6,7 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { CategoriesService } from 'src/app/shared/services/categories.service';
+import { CategoriesService } from 'src/app/shop/shared/services/categories.service';
 
 export interface Category {
   id: number;
