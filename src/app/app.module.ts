@@ -14,7 +14,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { CartComponent } from './cart/cart.component';
+import { CartComponent } from './shop/cart/cart.component';
 import { CategoriesSelectComponent } from './shared/components/categories-select/categories-select.component';
 import { ProductsComponent } from './products/products.component';
 import { ShopComponent } from './shop/shop.component';
