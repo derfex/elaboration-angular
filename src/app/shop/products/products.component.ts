@@ -1,3 +1,4 @@
+// External modules.
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   Component,
@@ -10,7 +11,9 @@ import {
 } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
+// Internal modules.
 import { IProductTableViewModel } from './shared/product-table-view.model';
+
 
 @Component({
   selector: 'app-products',
@@ -76,6 +79,10 @@ export class ProductsComponent {
       }
     });
     this.dataSource.data = data;
+  }
+
+  private hasDisplayedData(): boolean {
+    return !!this.dataSource.filteredData.length;
   }
 
   // region ### Selection

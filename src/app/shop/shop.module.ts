@@ -20,6 +20,7 @@ import { ShopComponent } from './shop.component';
 // Components.
 import { CartComponent } from './cart/cart.component';
 import { CategoriesSelectComponent } from './shared/components/categories-select/categories-select.component';
+import { EmptinessComponent } from './shared/components/emptiness/emptiness.component';
 import { ProductsComponent } from './products/products.component';
 
 
@@ -29,6 +30,7 @@ import { ProductsComponent } from './products/products.component';
 
     CartComponent,
     CategoriesSelectComponent,
+    EmptinessComponent,
     ProductsComponent,
   ],
   imports: [
