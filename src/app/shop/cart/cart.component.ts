@@ -1,3 +1,4 @@
+// External modules.
 import {
   Component,
   OnDestroy,
@@ -7,8 +8,13 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 
+// Internal modules.
 import { CartService } from './shared/cart.service';
-import { IProductTableViewModel } from 'src/app/shop/products/shared/product-table-view.model';
+import {
+  IProductTableViewModel,
+  ProductModels,
+} from 'src/app/shop/products/shared/product-table-view.model';
+
 
 @Component({
   selector: 'app-cart',
@@ -17,18 +23,18 @@ import { IProductTableViewModel } from 'src/app/shop/products/shared/product-tab
 })
 export class CartComponent implements OnInit, OnDestroy {
   // region ## Properties
-  private itemsPrivate: IProductTableViewModel[] = [];
+  private itemsPrivate: ProductModels = [];
   private dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
   private displayedColumns: string[] = ['delete', 'number', 'name', 'parent', 'price'];
   private subscriptionToCart: Subscription;
 
   @Input()
-  set items(items: IProductTableViewModel[]) {
+  set items(items: ProductModels) {
     this.itemsPrivate = items;
     this.dataSource = new MatTableDataSource<IProductTableViewModel>(items);
   }
 
-  get items(): IProductTableViewModel[] {
+  get items(): ProductModels {
     return this.itemsPrivate;
   }
 
@@ -58,7 +64,7 @@ export class CartComponent implements OnInit, OnDestroy {
     return !!this.dataSource.filteredData.length;
   }
 
-  deleteItem(id) {
+  private deleteItem(id): void {
     this.cartService.deleteProductByID(id);
   }
 
