@@ -54,6 +54,10 @@ export class CartComponent implements OnInit, OnDestroy {
   // endregion ## Lifecycle hooks
 
   // region ## Methods
+  private hasDisplayedData(): boolean {
+    return !!this.dataSource.filteredData.length;
+  }
+
   deleteItem(id) {
     this.cartService.deleteProductByID(id);
   }
