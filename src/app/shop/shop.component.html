@@ -1,31 +1,33 @@
-<div class="button-container">
-  <app-categories-select #categoriesSelectComponent>
-  </app-categories-select>
-</div>
-<div class="table-container">
-  <div class="table-container__scrollable">
-    <app-products
-      #productsComponent
-      [items]="productsInList"
-      [filter]="categoriesSelectComponent.selected"
-    >
-    </app-products>
+<div class="shop__container">
+  <div class="button-container">
+    <app-categories-select #categoriesSelectComponent>
+    </app-categories-select>
   </div>
-</div>
-<div class="button-container">
-  <button
-    mat-raised-button
-    color="accent"
-    (click)="addToCart(productsComponent)"
-  >
-    Add to cart
-  </button>
-</div>
-<div class="table-container">
-  <div class="table-container__scrollable">
-    <app-cart
-      [items]="productsInCart"
+  <div class="table-container">
+    <div class="table-container__scrollable">
+      <app-products
+        #productsComponent
+        [items]="productsInList"
+        [filter]="categoriesSelectComponent.selected"
+      >
+      </app-products>
+    </div>
+  </div>
+  <div class="button-container">
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="addToCart(productsComponent)"
     >
-    </app-cart>
+      Add to cart
+    </button>
+  </div>
+  <div class="table-container">
+    <div class="table-container__scrollable">
+      <app-cart
+        [items]="productsInCart"
+      >
+      </app-cart>
+    </div>
   </div>
 </div>
