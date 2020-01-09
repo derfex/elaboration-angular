@@ -1,3 +1,4 @@
+// External modules.
 import {
   Component,
   OnDestroy,
@@ -5,10 +6,15 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
+// Internal modules.
 import { CartService } from './cart/shared/cart.service';
 import { ProductsHTTPService } from 'src/app/shop/products/services-implementation/products-http/products-http.service';
 import { IProductTableViewModel } from './products/shared/product-table-view.model';
 import productsData from 'src/app/shop/products/services-implementation/products-local/products.data';
+
+// Definitions.
+type Products = IProductTableViewModel[];
+
 
 @Component({
   selector: 'app-shop',
@@ -18,9 +24,9 @@ import productsData from 'src/app/shop/products/services-implementation/products
 export class ShopComponent implements OnInit, OnDestroy {
   // region ## Properties
   // Note: `productsData` will changed to data from the `productsService`.
-  private products: IProductTableViewModel[] = productsData;
-  private productsInList: IProductTableViewModel[] = productsData;
-  private productsInCart: IProductTableViewModel[] = [];
+  private products: Products = productsData;
+  private productsInList: Products = productsData;
+  private productsInCart: Products = [];
   private keysInCart: Set<number> = new Set();
   private subscriptionToCart: Subscription;
 
@@ -36,7 +42,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.productsService.getAll()
       .subscribe(
-        (data: IProductTableViewModel[]) => {
+        (data: Products) => {
           this.products = data;
           this.productsInList = data.filter(this.needInList, this);
         },
