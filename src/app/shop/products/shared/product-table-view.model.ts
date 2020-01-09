@@ -7,3 +7,5 @@ export interface IProductTableViewModel {
   };
   price: number;
 }
+
+export type ProductModels = IProductTableViewModel[];
