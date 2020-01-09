@@ -10,7 +10,6 @@ import { Subscription } from 'rxjs';
 import { CartService } from './cart/shared/cart.service';
 import { ProductsHTTPService } from 'src/app/shop/products/services-implementation/products-http/products-http.service';
 import { IProductTableViewModel } from './products/shared/product-table-view.model';
-import productsData from 'src/app/shop/products/services-implementation/products-local/products.data';
 
 // Definitions.
 type Products = IProductTableViewModel[];
@@ -23,9 +22,8 @@ type Products = IProductTableViewModel[];
 })
 export class ShopComponent implements OnInit, OnDestroy {
   // region ## Properties
-  // Note: `productsData` will changed to data from the `productsService`.
-  private products: Products = productsData;
-  private productsInList: Products = productsData;
+  private products: Products = [];
+  private productsInList: Products = [];
   private productsInCart: Products = [];
   private keysInCart: Set<number> = new Set();
   private subscriptionToCart: Subscription;
