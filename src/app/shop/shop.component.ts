@@ -37,7 +37,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   // region ## Lifecycle hooks
-  ngOnInit() {
+  public ngOnInit() {
     this.productsService.getAll()
       .subscribe(
         (data: Products) => {
@@ -56,7 +56,7 @@ export class ShopComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     // Unsubscribe to ensure no memory leaks.
     this.subscriptionToCart.unsubscribe();
   }

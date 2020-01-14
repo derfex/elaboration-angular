@@ -46,13 +46,13 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   // region ## Lifecycle hooks
-  ngOnInit() {
+  public ngOnInit() {
     this.subscriptionToCart = this.cartService.state.subscribe(payload => {
       this.items = payload.items;
     });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     // Unsubscribe to ensure no memory leaks.
     this.subscriptionToCart.unsubscribe();
   }

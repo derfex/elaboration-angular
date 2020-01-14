@@ -33,7 +33,7 @@ export class CategoriesSelectComponent implements OnInit {
   }
 
   // region ## Lifecycle hooks
-  ngOnInit() {
+  public ngOnInit() {
     this.subscriptionToCategories = this.categoriesService.getAll()
       .subscribe(
         (data: CategoryModels) => {
