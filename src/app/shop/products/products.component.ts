@@ -1,3 +1,4 @@
+// External modules.
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   Component,
@@ -10,7 +11,12 @@ import {
 } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { IProductTableViewModel } from './products-table-view-model.interface';
+// Internal modules.
+import {
+  IProductTableViewModel,
+  ProductModels,
+} from './shared/product-table-view.model';
+
 
 @Component({
   selector: 'app-products',
@@ -19,19 +25,19 @@ import { IProductTableViewModel } from './products-table-view-model.interface';
 })
 export class ProductsComponent {
   // region ## Properties
-  private itemsPrivate: IProductTableViewModel[] = [];
+  private itemsPrivate: ProductModels = [];
   private dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
   private displayedColumns: string[] = ['select', 'number', 'name', 'parent', 'price'];
   private selection = new SelectionModel<IProductTableViewModel>(true, []);
   private filterPrivate: number = null;
 
   @Input()
-  set items(items: IProductTableViewModel[]) {
+  set items(items: ProductModels) {
     this.itemsPrivate = items;
     this.dataSource.data = items;
   }
 
-  get items(): IProductTableViewModel[] {
+  get items(): ProductModels {
     return this.itemsPrivate;
   }
 
@@ -57,7 +63,7 @@ export class ProductsComponent {
   }
 
   // region ## Methods
-  private sortData(sort: Sort) {
+  private sortData(sort: Sort): void {
     const data = this.itemsPrivate.slice();
     if (!sort.active || sort.direction === '') {
       this.dataSource.data = data;
@@ -78,16 +84,20 @@ export class ProductsComponent {
     this.dataSource.data = data;
   }
 
+  private hasDisplayedData(): boolean {
+    return !!this.dataSource.filteredData.length;
+  }
+
   // region ### Selection
   // Whether the number of selected elements matches the total number of rows.
-  private isAllSelected() {
+  private isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
   // Selects all rows if they are not all selected; otherwise clear selection.
-  private masterToggle() {
+  private masterToggle(): void {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else {
@@ -104,7 +114,7 @@ export class ProductsComponent {
   }
 
 
-  public get selected(): IProductTableViewModel[] {
+  public get selected(): ProductModels {
     return this.selection.selected;
   }
 
@@ -116,6 +126,7 @@ export class ProductsComponent {
   // endregion ## Methods
 }
 
-function compare(a: number | string, b: number | string, isAsc: boolean) {
+// Extra.
+function compare(a: number | string, b: number | string, isAsc: boolean): number {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

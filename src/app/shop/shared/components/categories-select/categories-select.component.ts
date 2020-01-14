@@ -1,3 +1,4 @@
+// External modules.
 import {
   Component,
   OnInit,
@@ -6,12 +7,11 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { CategoriesService } from 'src/app/shared/services/categories.service';
-
-export interface Category {
-  id: number;
-  name: string;
-}
+// Internal modules.
+import {
+  CategoryModels,
+  CategoriesService,
+} from 'src/app/shop/shared/services/categories.service';
 
 
 @Component({
@@ -21,7 +21,7 @@ export interface Category {
 })
 export class CategoriesSelectComponent implements OnInit {
   // region ## Properties
-  private items: Category[] = [];
+  private items: CategoryModels = [];
   private selectedID: number = null;
   private subscriptionToCategories: Subscription;
 
@@ -33,10 +33,10 @@ export class CategoriesSelectComponent implements OnInit {
   }
 
   // region ## Lifecycle hooks
-  ngOnInit() {
+  public ngOnInit() {
     this.subscriptionToCategories = this.categoriesService.getAll()
       .subscribe(
-        (data: Category[]) => {
+        (data: CategoryModels) => {
           this.items = data;
         },
         error => {

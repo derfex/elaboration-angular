@@ -1,3 +1,4 @@
+// External modules.
 import {
   Component,
   OnDestroy,
@@ -7,8 +8,13 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 
-import { CartService } from 'src/app/shared/services/cart.service';
-import { IProductTableViewModel } from 'src/app/products/products-table-view-model.interface';
+// Internal modules.
+import { CartService } from './shared/cart.service';
+import {
+  IProductTableViewModel,
+  ProductModels,
+} from 'src/app/shop/products/shared/product-table-view.model';
+
 
 @Component({
   selector: 'app-cart',
@@ -17,18 +23,18 @@ import { IProductTableViewModel } from 'src/app/products/products-table-view-mod
 })
 export class CartComponent implements OnInit, OnDestroy {
   // region ## Properties
-  private itemsPrivate: IProductTableViewModel[] = [];
+  private itemsPrivate: ProductModels = [];
   private dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
   private displayedColumns: string[] = ['delete', 'number', 'name', 'parent', 'price'];
   private subscriptionToCart: Subscription;
 
   @Input()
-  set items(items: IProductTableViewModel[]) {
+  set items(items: ProductModels) {
     this.itemsPrivate = items;
     this.dataSource = new MatTableDataSource<IProductTableViewModel>(items);
   }
 
-  get items(): IProductTableViewModel[] {
+  get items(): ProductModels {
     return this.itemsPrivate;
   }
 
@@ -40,13 +46,13 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   // region ## Lifecycle hooks
-  ngOnInit() {
+  public ngOnInit() {
     this.subscriptionToCart = this.cartService.state.subscribe(payload => {
       this.items = payload.items;
     });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     // Unsubscribe to ensure no memory leaks.
     this.subscriptionToCart.unsubscribe();
   }
@@ -54,7 +60,11 @@ export class CartComponent implements OnInit, OnDestroy {
   // endregion ## Lifecycle hooks
 
   // region ## Methods
-  deleteItem(id) {
+  private hasDisplayedData(): boolean {
+    return !!this.dataSource.filteredData.length;
+  }
+
+  private deleteItem(id): void {
     this.cartService.deleteProductByID(id);
   }
 
