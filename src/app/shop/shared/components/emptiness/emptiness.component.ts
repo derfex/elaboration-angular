@@ -7,14 +7,14 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   templateUrl: './emptiness.component.html',
 })
 export class EmptinessComponent {
-  private caption = 'No data to display';
+  public caption = 'No data to display';
 
   @Input()
-  set text(caption: string) {
-    this.caption = caption;
+  public get text(): string {
+    return this.caption;
   }
 
-  get text(): string {
-    return this.caption;
+  public set text(caption: string) {
+    this.caption = caption;
   }
 }
