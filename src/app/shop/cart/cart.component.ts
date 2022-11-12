@@ -11,25 +11,23 @@ import { CartService } from './shared/cart.service';
   styleUrls: ['./cart.component.sass'],
 })
 export class CartComponent implements OnDestroy, OnInit {
-  // region ## Properties
+  public dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
+  public displayedColumns: string[] = ['delete', 'number', 'name', 'parent', 'price'];
+
   private itemsPrivate: ProductModels = [];
-  private dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
-  private displayedColumns: string[] = ['delete', 'number', 'name', 'parent', 'price'];
   private subscriptionToCart: Subscription;
 
-  @Input()
-  set items(items: ProductModels) {
-    this.itemsPrivate = items;
-    this.dataSource = new MatTableDataSource<IProductTableViewModel>(items);
-  }
+  constructor(private readonly cartService: CartService) {}
 
-  get items(): ProductModels {
+  @Input()
+  public get items(): ProductModels {
     return this.itemsPrivate;
   }
 
-  // endregion ## Properties
-
-  constructor(private readonly cartService: CartService) {}
+  public set items(items: ProductModels) {
+    this.itemsPrivate = items;
+    this.dataSource = new MatTableDataSource<IProductTableViewModel>(items);
+  }
 
   // region ## Lifecycle hooks
   public ngOnInit() {
@@ -46,12 +44,12 @@ export class CartComponent implements OnDestroy, OnInit {
   // endregion ## Lifecycle hooks
 
   // region ## Methods
-  private hasDisplayedData(): boolean {
-    return !!this.dataSource.filteredData.length;
+  public deleteItem(id): void {
+    this.cartService.deleteProductByID(id);
   }
 
-  private deleteItem(id): void {
-    this.cartService.deleteProductByID(id);
+  public hasDisplayedData(): boolean {
+    return !!this.dataSource.filteredData.length;
   }
 
   // endregion ## Methods
