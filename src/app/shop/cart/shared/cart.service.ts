@@ -1,26 +1,7 @@
-// External modules.
 import { Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-// Internal modules.
-import {
-  ProductModels,
-} from 'src/app/shop/products/shared/product-table-view.model';
-
-// Definitions.
-interface IItemsState {
-  items: ProductModels;
-  keys: Set<number>;
-}
-
-const defaultState: IItemsState = {
-  items: [],
-  keys: new Set(),
-};
-
+import { ProductModels } from 'src/app/shop/products/shared/product-table-view.model';
 
 @Injectable({
   providedIn: 'root',
@@ -60,3 +41,13 @@ export class CartService {
 
   // endregion ## Methods
 }
+
+interface IItemsState {
+  items: ProductModels;
+  keys: Set<number>;
+}
+
+const defaultState: IItemsState = {
+  items: [],
+  keys: new Set(),
+};

@@ -1,18 +1,7 @@
-// External modules.
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  Subscription,
-} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
-// Internal modules.
-import {
-  CategoryModels,
-  CategoriesService,
-} from 'src/app/shop/shared/services/categories.service';
-
+import { CategoriesService, CategoryModels } from 'src/app/shop/shared/services/categories.service';
 
 @Component({
   selector: 'app-categories-select',
@@ -27,10 +16,7 @@ export class CategoriesSelectComponent implements OnInit {
 
   // endregion ## Properties
 
-  constructor(
-    private categoriesService: CategoriesService,
-  ) {
-  }
+  constructor(private readonly categoriesService: CategoriesService) {}
 
   // region ## Lifecycle hooks
   public ngOnInit() {

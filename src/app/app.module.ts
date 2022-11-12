@@ -1,24 +1,18 @@
-// External modules.
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-// Internal modules.
+import { AppComponent } from './app.component';
 import { ShopModule } from './shop/shop.module';
 
-// Main component.
-import { AppComponent } from './app.component';
-
-
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  bootstrap: [AppComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
+
+    // For the app.
     ShopModule,
   ],
   providers: [],
-  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

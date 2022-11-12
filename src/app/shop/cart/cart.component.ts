@@ -1,27 +1,16 @@
-// External modules.
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  Input,
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 
-// Internal modules.
+import { IProductTableViewModel, ProductModels } from 'src/app/shop/products/shared/product-table-view.model';
 import { CartService } from './shared/cart.service';
-import {
-  IProductTableViewModel,
-  ProductModels,
-} from 'src/app/shop/products/shared/product-table-view.model';
-
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.sass'],
 })
-export class CartComponent implements OnInit, OnDestroy {
+export class CartComponent implements OnDestroy, OnInit {
   // region ## Properties
   private itemsPrivate: ProductModels = [];
   private dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
@@ -40,10 +29,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   // endregion ## Properties
 
-  constructor(
-    private cartService: CartService,
-  ) {
-  }
+  constructor(private readonly cartService: CartService) {}
 
   // region ## Lifecycle hooks
   public ngOnInit() {

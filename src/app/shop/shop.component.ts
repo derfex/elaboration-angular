@@ -1,26 +1,16 @@
-// External modules.
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-// Internal modules.
-import { CartService } from './cart/shared/cart.service';
 import { ProductsHTTPService } from 'src/app/shop/products/services-implementation/products-http/products-http.service';
+import { CartService } from './cart/shared/cart.service';
 import { IProductTableViewModel } from './products/shared/product-table-view.model';
-
-// Definitions.
-type Products = IProductTableViewModel[];
-
 
 @Component({
   selector: 'app-shop',
-  templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.sass'],
+  templateUrl: './shop.component.html',
 })
-export class ShopComponent implements OnInit, OnDestroy {
+export class ShopComponent implements OnDestroy, OnInit {
   // region ## Properties
   private products: Products = [];
   private productsInList: Products = [];
@@ -31,10 +21,9 @@ export class ShopComponent implements OnInit, OnDestroy {
   // endregion ## Properties
 
   constructor(
-    private cartService: CartService,
-    private productsService: ProductsHTTPService,
-  ) {
-  }
+    private readonly cartService: CartService,
+    private readonly productsService: ProductsHTTPService,
+  ) {}
 
   // region ## Lifecycle hooks
   public ngOnInit() {
@@ -75,3 +64,5 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   // endregion ## Methods
 }
+
+type Products = IProductTableViewModel[];

@@ -1,27 +1,14 @@
-// External modules.
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-  Component,
-  Input,
-  ViewChild,
-} from '@angular/core';
-import {
-  MatSort,
-  Sort,
-} from '@angular/material/sort';
+import { Component, Input, ViewChild } from '@angular/core';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-// Internal modules.
-import {
-  IProductTableViewModel,
-  ProductModels,
-} from './shared/product-table-view.model';
-
+import { IProductTableViewModel, ProductModels } from './shared/product-table-view.model';
 
 @Component({
   selector: 'app-products',
-  templateUrl: './products.component.html',
   styleUrls: ['./products.component.sass'],
+  templateUrl: './products.component.html',
 })
 export class ProductsComponent {
   // region ## Properties

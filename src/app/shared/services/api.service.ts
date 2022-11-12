@@ -6,8 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class APIService {
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private readonly httpClient: HttpClient) {}
 
   public get<T>(url): Observable<T> {
     return this.httpClient.get<T>(url);
