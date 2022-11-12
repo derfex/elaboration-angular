@@ -1,16 +1,14 @@
 <div class="shop__container">
   <div class="button-container">
-    <app-categories-select #categoriesSelectComponent>
-    </app-categories-select>
+    <app-categories-select #categoriesSelectComponent></app-categories-select>
   </div>
   <div class="table-container">
     <div class="table-container__scrollable">
       <app-products
         #productsComponent
-        [items]="productsInList"
         [filter]="categoriesSelectComponent.selected"
-      >
-      </app-products>
+        [items]="productsInList"
+      ></app-products>
     </div>
   </div>
   <div class="button-container">
@@ -26,8 +24,7 @@
     <div class="table-container__scrollable">
       <app-cart
         [items]="productsInCart"
-      >
-      </app-cart>
+      ></app-cart>
     </div>
   </div>
 </div>
