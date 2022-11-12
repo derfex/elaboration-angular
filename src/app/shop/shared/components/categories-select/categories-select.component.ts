@@ -5,24 +5,26 @@ import { CategoriesService, CategoryModels } from 'src/app/shop/shared/services/
 
 @Component({
   selector: 'app-categories-select',
-  templateUrl: './categories-select.component.html',
   styleUrls: ['./categories-select.component.sass'],
+  templateUrl: './categories-select.component.html',
 })
 export class CategoriesSelectComponent implements OnInit {
-  // region ## Properties
-  private items: CategoryModels = [];
-  private selectedID: number = null;
-  private subscriptionToCategories: Subscription;
+  public items: CategoryModels = [];
+  public selectedID: number = null;
 
-  // endregion ## Properties
+  private subscriptionToCategories: Subscription;
 
   constructor(private readonly categoriesService: CategoriesService) {}
 
+  public get selected(): number {
+    return this.selectedID;
+  }
+
   // region ## Lifecycle hooks
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.subscriptionToCategories = this.categoriesService.getAll()
       .subscribe(
-        (data: CategoryModels) => {
+        (data: CategoryModels): void => {
           this.items = data;
         },
         error => {
@@ -32,11 +34,4 @@ export class CategoriesSelectComponent implements OnInit {
   }
 
   // endregion ## Lifecycle hooks
-
-  // region ## Methods
-  public get selected(): number {
-    return this.selectedID;
-  }
-
-  // endregion ## Methods
 }
