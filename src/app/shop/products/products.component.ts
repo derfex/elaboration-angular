@@ -11,46 +11,52 @@ import { IProductTableViewModel, ProductModels } from './shared/product-table-vi
   templateUrl: './products.component.html',
 })
 export class ProductsComponent {
-  // region ## Properties
+  public dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
+  public displayedColumns: string[] = ['select', 'number', 'name', 'parent', 'price'];
+  public selection = new SelectionModel<IProductTableViewModel>(true, []);
+
+  @ViewChild(MatSort, { static: false })
+  private sort: MatSort;
+
   private itemsPrivate: ProductModels = [];
-  private dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
-  private displayedColumns: string[] = ['select', 'number', 'name', 'parent', 'price'];
-  private selection = new SelectionModel<IProductTableViewModel>(true, []);
   private filterPrivate: number = null;
 
+  constructor() {
+    this.dataSource.filterPredicate = (data, filter: string): boolean => (
+      data.parent.id === +filter
+    );
+  }
+
   @Input()
+  get items(): ProductModels {
+    return this.itemsPrivate;
+  }
+
   set items(items: ProductModels) {
     this.itemsPrivate = items;
     this.dataSource.data = items;
   }
 
-  get items(): ProductModels {
-    return this.itemsPrivate;
+  @Input()
+  get filter(): number {
+    return this.filterPrivate;
   }
 
-  @Input()
   set filter(filter: number) {
     this.filterPrivate = filter;
     this.dataSource.filter = filter ? filter + '' : '';
   }
 
-  get filter(): number {
-    return this.filterPrivate;
+  public get selected(): ProductModels {
+    return this.selection.selected;
   }
 
-  @ViewChild(MatSort, {static: false})
-  sort: MatSort;
-
-  // endregion ## Properties
-
-  constructor() {
-    this.dataSource.filterPredicate = (data, filter) => (
-      data.parent.id === +filter
-    );
+  public clearSelection(): void {
+    this.selection.clear();
   }
 
   // region ## Methods
-  private sortData(sort: Sort): void {
+  public sortData(sort: Sort): void {
     const data = this.itemsPrivate.slice();
     if (!sort.active || sort.direction === '') {
       this.dataSource.data = data;
@@ -71,20 +77,20 @@ export class ProductsComponent {
     this.dataSource.data = data;
   }
 
-  private hasDisplayedData(): boolean {
+  public hasDisplayedData(): boolean {
     return !!this.dataSource.filteredData.length;
   }
 
   // region ### Selection
   // Whether the number of selected elements matches the total number of rows.
-  private isAllSelected(): boolean {
+  public isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
   // Selects all rows if they are not all selected; otherwise clear selection.
-  private masterToggle(): void {
+  public masterToggle(): void {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else {
@@ -93,20 +99,11 @@ export class ProductsComponent {
   }
 
   // The label for the checkbox on the passed row.
-  private checkboxLabel(row?: IProductTableViewModel): string {
+  public checkboxLabel(row?: IProductTableViewModel): string {
     if (!row) {
-      return `${ this.isAllSelected() ? 'select' : 'deselect' } all`;
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${ this.selection.isSelected(row) ? 'deselect' : 'select' } row ${ row.id + 1 }`;
-  }
-
-
-  public get selected(): ProductModels {
-    return this.selection.selected;
-  }
-
-  public clearSelection(): void {
-    this.selection.clear();
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
   // endregion ### Selection
