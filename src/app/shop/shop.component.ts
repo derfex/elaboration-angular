@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { ProductsHTTPService } from 'src/app/shop/products/services-implementation/products-http/products-http.service';
 import { CartService } from './cart/shared/cart.service';
-import { IProductTableViewModel } from './products/shared/product-table-view.model';
+import { ProductTableViewModel } from './products/shared/product-table-view.model';
 
 @Component({
   selector: 'app-shop',
@@ -11,11 +11,11 @@ import { IProductTableViewModel } from './products/shared/product-table-view.mod
   templateUrl: './shop.component.html',
 })
 export class ShopComponent implements OnDestroy, OnInit {
-  public productsInCart: Products = [];
-  public productsInList: Products = [];
+  public productsInCart: ProductTableViewModel[] = [];
+  public productsInList: ProductTableViewModel[] = [];
 
   private keysInCart: Set<number> = new Set();
-  private products: Products = [];
+  private products: ProductTableViewModel[] = [];
   private subscriptionToCart: Subscription;
 
   constructor(
@@ -27,7 +27,7 @@ export class ShopComponent implements OnDestroy, OnInit {
   public ngOnInit(): void {
     this.productsService.getAll()
       .subscribe(
-        (data: Products): void => {
+        (data: ProductTableViewModel[]): void => {
           this.products = data;
           this.productsInList = data.filter(this.needInList, this);
         },
@@ -62,5 +62,3 @@ export class ShopComponent implements OnDestroy, OnInit {
 
   // endregion ## Methods
 }
-
-type Products = IProductTableViewModel[];

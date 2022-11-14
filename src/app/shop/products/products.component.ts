@@ -3,7 +3,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { IProductTableViewModel, ProductModels } from './shared/product-table-view.model';
+import { ProductTableViewModel } from './shared/product-table-view.model';
 
 @Component({
   selector: 'app-products',
@@ -11,14 +11,14 @@ import { IProductTableViewModel, ProductModels } from './shared/product-table-vi
   templateUrl: './products.component.html',
 })
 export class ProductsComponent {
-  public dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
+  public dataSource: MatTableDataSource<ProductTableViewModel> = new MatTableDataSource<ProductTableViewModel>([]);
   public displayedColumns: string[] = ['select', 'number', 'name', 'parent', 'price'];
-  public selection = new SelectionModel<IProductTableViewModel>(true, []);
+  public selection = new SelectionModel<ProductTableViewModel>(true, []);
 
   @ViewChild(MatSort, { static: false })
   private sort: MatSort;
 
-  private itemsPrivate: ProductModels = [];
+  private itemsPrivate: ProductTableViewModel[] = [];
   private filterPrivate: number = null;
 
   constructor() {
@@ -28,26 +28,26 @@ export class ProductsComponent {
   }
 
   @Input()
-  get items(): ProductModels {
+  public get items(): ProductTableViewModel[] {
     return this.itemsPrivate;
   }
 
-  set items(items: ProductModels) {
+  public set items(items: ProductTableViewModel[]) {
     this.itemsPrivate = items;
     this.dataSource.data = items;
   }
 
   @Input()
-  get filter(): number {
+  public get filter(): number {
     return this.filterPrivate;
   }
 
-  set filter(filter: number) {
+  public set filter(filter: number) {
     this.filterPrivate = filter;
     this.dataSource.filter = filter ? filter + '' : '';
   }
 
-  public get selected(): ProductModels {
+  public get selected(): ProductTableViewModel[] {
     return this.selection.selected;
   }
 
@@ -63,7 +63,7 @@ export class ProductsComponent {
       return;
     }
 
-    data.sort((a, b) => {
+    data.sort((a, b): number => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'name':
@@ -99,7 +99,7 @@ export class ProductsComponent {
   }
 
   // The label for the checkbox on the passed row.
-  public checkboxLabel(row?: IProductTableViewModel): string {
+  public checkboxLabel(row?: ProductTableViewModel): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }

@@ -1,23 +1,20 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { ProductModels } from 'src/app/shop/products/shared/product-table-view.model';
+import { ProductTableViewModel } from 'src/app/shop/products/shared/product-table-view.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  // region ## Properties
-  private subject = new BehaviorSubject<IItemsState>(defaultState);
+  private readonly subject = new BehaviorSubject<ItemsState>(defaultState);
 
-  public get state(): Observable<IItemsState> {
+  public get state(): Observable<ItemsState> {
     return this.subject.asObservable();
   }
 
-  // endregion ## Properties
-
   // region ## Methods
-  public addProducts(products: ProductModels): void {
+  public addProducts(products: ProductTableViewModel[]): void {
     const value = this.subject.getValue();
     const items = value.items.concat(products);
     const keys = value.keys;
@@ -42,12 +39,12 @@ export class CartService {
   // endregion ## Methods
 }
 
-interface IItemsState {
-  items: ProductModels;
-  keys: Set<number>;
+interface ItemsState {
+  readonly items: ProductTableViewModel[];
+  readonly keys: Set<number>;
 }
 
-const defaultState: IItemsState = {
+const defaultState: ItemsState = {
   items: [],
   keys: new Set(),
 };

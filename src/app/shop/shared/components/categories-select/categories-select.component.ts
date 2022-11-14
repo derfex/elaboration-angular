@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { CategoriesService, CategoryModels } from 'src/app/shop/shared/services/categories.service';
+import { CategoriesService, Category } from 'src/app/shop/shared/services/categories.service';
 
 @Component({
   selector: 'app-categories-select',
@@ -9,7 +9,7 @@ import { CategoriesService, CategoryModels } from 'src/app/shop/shared/services/
   templateUrl: './categories-select.component.html',
 })
 export class CategoriesSelectComponent implements OnInit {
-  public items: CategoryModels = [];
+  public items: Category[] = [];
   public selectedID: number = null;
 
   private subscriptionToCategories: Subscription;
@@ -24,7 +24,7 @@ export class CategoriesSelectComponent implements OnInit {
   public ngOnInit(): void {
     this.subscriptionToCategories = this.categoriesService.getAll()
       .subscribe(
-        (data: CategoryModels): void => {
+        (data: Category[]): void => {
           this.items = data;
         },
         error => {

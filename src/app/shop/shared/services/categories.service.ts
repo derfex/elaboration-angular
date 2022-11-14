@@ -10,15 +10,13 @@ import { environment } from 'src/environments/environment';
 export class CategoriesService {
   constructor(private readonly apiService: APIService) {}
 
-  public getAll(): Observable<CategoryModels> {
+  public getAll(): Observable<Category[]> {
     return this.apiService
       .get(environment.API.categories.getAll);
   }
 }
 
-interface ICategory {
-  id: number;
-  name: string;
+export interface Category {
+  readonly id: number;
+  readonly name: string;
 }
-
-export type CategoryModels = ICategory[];

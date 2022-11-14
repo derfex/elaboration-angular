@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 
-import { IProductTableViewModel, ProductModels } from 'src/app/shop/products/shared/product-table-view.model';
+import { ProductTableViewModel } from 'src/app/shop/products/shared/product-table-view.model';
 import { CartService } from './shared/cart.service';
 
 @Component({
@@ -11,22 +11,22 @@ import { CartService } from './shared/cart.service';
   styleUrls: ['./cart.component.sass'],
 })
 export class CartComponent implements OnDestroy, OnInit {
-  public dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
+  public dataSource: MatTableDataSource<ProductTableViewModel> = new MatTableDataSource<ProductTableViewModel>([]);
   public displayedColumns: string[] = ['delete', 'number', 'name', 'parent', 'price'];
 
-  private itemsPrivate: ProductModels = [];
+  private itemsPrivate: ProductTableViewModel[] = [];
   private subscriptionToCart: Subscription;
 
   constructor(private readonly cartService: CartService) {}
 
   @Input()
-  public get items(): ProductModels {
+  public get items(): ProductTableViewModel[] {
     return this.itemsPrivate;
   }
 
-  public set items(items: ProductModels) {
+  public set items(items: ProductTableViewModel[]) {
     this.itemsPrivate = items;
-    this.dataSource = new MatTableDataSource<IProductTableViewModel>(items);
+    this.dataSource = new MatTableDataSource<ProductTableViewModel>(items);
   }
 
   // region ## Lifecycle hooks
