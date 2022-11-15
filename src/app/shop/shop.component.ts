@@ -1,11 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs'
 
 import { ProductsHTTPService } from 'src/app/shop/products/services-implementation/products-http/products-http.service'
-import { CartService } from './cart/shared/cart.service'
+import { CartService, ItemsState } from './cart/shared/cart.service'
 import { ProductTableViewModel } from './products/shared/product-table-view.model'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CartService],
   selector: 'app-shop',
   styleUrls: ['./shop.component.sass'],
@@ -21,6 +22,7 @@ export class ShopComponent implements OnDestroy, OnInit {
 
   constructor(
     private readonly cartService: CartService,
+    private readonly cdr: ChangeDetectorRef,
     private readonly productsService: ProductsHTTPService,
   ) {}
 
@@ -31,17 +33,20 @@ export class ShopComponent implements OnDestroy, OnInit {
         (data: ProductTableViewModel[]): void => {
           this.products = data
           this.productsInList = data.filter(this.needInList, this)
+          this.cdr.markForCheck()
         },
         error => {
           throw error
         },
       )
 
-    this.subscriptionToCart = this.cartService.state.subscribe(payload => {
-      this.productsInCart = payload.items
-      this.keysInCart = payload.keys
-      this.productsInList = this.products.filter(this.needInList, this)
-    })
+    this.subscriptionToCart = this.cartService.state
+      .subscribe((payload: ItemsState): void => {
+        this.productsInCart = payload.items
+        this.keysInCart = payload.keys
+        this.productsInList = this.products.filter(this.needInList, this)
+        this.cdr.markForCheck()
+      })
   }
 
   public ngOnDestroy(): void {
