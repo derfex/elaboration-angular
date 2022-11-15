@@ -38,18 +38,23 @@ export class ShopComponent implements OnDestroy, OnInit {
           this.productsInList = data.filter(this.needInList, this)
           this.cdr.markForCheck()
         },
-        error => {
+        (error): never => {
           throw error
         },
       )
 
     this.subscriptionToCart = this.cartService.state
-      .subscribe((payload: ItemsState): void => {
-        this.productsInCart = payload.items
-        this.keysInCart = payload.keys
-        this.productsInList = this.products.filter(this.needInList, this)
-        this.cdr.markForCheck()
-      })
+      .subscribe(
+        (payload: ItemsState): void => {
+          this.productsInCart = payload.items
+          this.keysInCart = payload.keys
+          this.productsInList = this.products.filter(this.needInList, this)
+          this.cdr.markForCheck()
+        },
+        (error): never => {
+          throw error
+        },
+      )
   }
 
   public ngOnDestroy(): void {

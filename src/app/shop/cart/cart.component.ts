@@ -37,10 +37,15 @@ export class CartComponent implements OnDestroy, OnInit {
   // region ## Lifecycle hooks
   public ngOnInit() {
     this.subscriptionToCart = this.cartService.state
-      .subscribe((payload: ItemsState): void => {
-        this.items = payload.items
-        this.cdr.markForCheck()
-      })
+      .subscribe(
+        (payload: ItemsState): void => {
+          this.items = payload.items
+          this.cdr.markForCheck()
+        },
+        (error): never => {
+          throw error
+        },
+      )
   }
 
   public ngOnDestroy() {

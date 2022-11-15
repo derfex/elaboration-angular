@@ -33,7 +33,7 @@ export class CategoriesSelectComponent implements OnInit {
           this.items = data
           this.cdr.markForCheck()
         },
-        error => {
+        (error): never => {
           throw error
         },
       )
