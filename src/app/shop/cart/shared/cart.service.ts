@@ -39,7 +39,7 @@ export class CartService {
   // endregion ## Methods
 }
 
-interface ItemsState {
+export interface ItemsState {
   readonly items: ProductTableViewModel[]
   readonly keys: Set<number>
 }

@@ -1,11 +1,12 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { Subscription } from 'rxjs'
 
 import { ProductTableViewModel } from 'src/app/shop/products/shared/product-table-view.model'
-import { CartService } from './shared/cart.service'
+import { CartService, ItemsState } from './shared/cart.service'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.sass'],
@@ -17,7 +18,10 @@ export class CartComponent implements OnDestroy, OnInit {
   private itemsPrivate: ProductTableViewModel[] = []
   private subscriptionToCart: Subscription
 
-  constructor(private readonly cartService: CartService) {}
+  constructor(
+    private readonly cartService: CartService,
+    private readonly cdr: ChangeDetectorRef,
+    ) {}
 
   @Input()
   public get items(): ProductTableViewModel[] {
@@ -31,9 +35,11 @@ export class CartComponent implements OnDestroy, OnInit {
 
   // region ## Lifecycle hooks
   public ngOnInit() {
-    this.subscriptionToCart = this.cartService.state.subscribe(payload => {
-      this.items = payload.items
-    })
+    this.subscriptionToCart = this.cartService.state
+      .subscribe((payload: ItemsState): void => {
+        this.items = payload.items
+        this.cdr.markForCheck()
+      })
   }
 
   public ngOnDestroy() {
