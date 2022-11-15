@@ -1,48 +1,32 @@
-// External modules.
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  Input,
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 
-// Internal modules.
+import { ProductTableViewModel } from 'src/app/shop/products/shared/product-table-view.model';
 import { CartService } from './shared/cart.service';
-import {
-  IProductTableViewModel,
-  ProductModels,
-} from 'src/app/shop/products/shared/product-table-view.model';
-
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.sass'],
 })
-export class CartComponent implements OnInit, OnDestroy {
-  // region ## Properties
-  private itemsPrivate: ProductModels = [];
-  private dataSource: MatTableDataSource<IProductTableViewModel> = new MatTableDataSource<IProductTableViewModel>([]);
-  private displayedColumns: string[] = ['delete', 'number', 'name', 'parent', 'price'];
+export class CartComponent implements OnDestroy, OnInit {
+  public dataSource: MatTableDataSource<ProductTableViewModel> = new MatTableDataSource<ProductTableViewModel>([]);
+  public displayedColumns: string[] = ['delete', 'number', 'name', 'parent', 'price'];
+
+  private itemsPrivate: ProductTableViewModel[] = [];
   private subscriptionToCart: Subscription;
 
-  @Input()
-  set items(items: ProductModels) {
-    this.itemsPrivate = items;
-    this.dataSource = new MatTableDataSource<IProductTableViewModel>(items);
-  }
+  constructor(private readonly cartService: CartService) {}
 
-  get items(): ProductModels {
+  @Input()
+  public get items(): ProductTableViewModel[] {
     return this.itemsPrivate;
   }
 
-  // endregion ## Properties
-
-  constructor(
-    private cartService: CartService,
-  ) {
+  public set items(items: ProductTableViewModel[]) {
+    this.itemsPrivate = items;
+    this.dataSource = new MatTableDataSource<ProductTableViewModel>(items);
   }
 
   // region ## Lifecycle hooks
@@ -60,12 +44,12 @@ export class CartComponent implements OnInit, OnDestroy {
   // endregion ## Lifecycle hooks
 
   // region ## Methods
-  private hasDisplayedData(): boolean {
-    return !!this.dataSource.filteredData.length;
+  public deleteItem(id): void {
+    this.cartService.deleteProductByID(id);
   }
 
-  private deleteItem(id): void {
-    this.cartService.deleteProductByID(id);
+  public hasDisplayedData(): boolean {
+    return !!this.dataSource.filteredData.length;
   }
 
   // endregion ## Methods

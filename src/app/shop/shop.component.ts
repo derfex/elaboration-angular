@@ -1,46 +1,33 @@
-// External modules.
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-// Internal modules.
-import { CartService } from './cart/shared/cart.service';
 import { ProductsHTTPService } from 'src/app/shop/products/services-implementation/products-http/products-http.service';
-import { IProductTableViewModel } from './products/shared/product-table-view.model';
-
-// Definitions.
-type Products = IProductTableViewModel[];
-
+import { CartService } from './cart/shared/cart.service';
+import { ProductTableViewModel } from './products/shared/product-table-view.model';
 
 @Component({
   selector: 'app-shop',
-  templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.sass'],
+  templateUrl: './shop.component.html',
 })
-export class ShopComponent implements OnInit, OnDestroy {
-  // region ## Properties
-  private products: Products = [];
-  private productsInList: Products = [];
-  private productsInCart: Products = [];
+export class ShopComponent implements OnDestroy, OnInit {
+  public productsInCart: ProductTableViewModel[] = [];
+  public productsInList: ProductTableViewModel[] = [];
+
   private keysInCart: Set<number> = new Set();
+  private products: ProductTableViewModel[] = [];
   private subscriptionToCart: Subscription;
 
-  // endregion ## Properties
-
   constructor(
-    private cartService: CartService,
-    private productsService: ProductsHTTPService,
-  ) {
-  }
+    private readonly cartService: CartService,
+    private readonly productsService: ProductsHTTPService,
+  ) {}
 
   // region ## Lifecycle hooks
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.productsService.getAll()
       .subscribe(
-        (data: Products) => {
+        (data: ProductTableViewModel[]): void => {
           this.products = data;
           this.productsInList = data.filter(this.needInList, this);
         },
@@ -56,7 +43,7 @@ export class ShopComponent implements OnInit, OnDestroy {
     });
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     // Unsubscribe to ensure no memory leaks.
     this.subscriptionToCart.unsubscribe();
   }
@@ -64,13 +51,13 @@ export class ShopComponent implements OnInit, OnDestroy {
   // endregion ## Lifecycle hooks
 
   // region ## Methods
-  private needInList(product) {
-    return !this.keysInCart.has(product.id);
-  }
-
-  public addToCart(productsComponent) {
+  public addToCart(productsComponent): void {
     this.cartService.addProducts(productsComponent.selected);
     productsComponent.clearSelection();
+  }
+
+  private needInList(product): boolean {
+    return !this.keysInCart.has(product.id);
   }
 
   // endregion ## Methods

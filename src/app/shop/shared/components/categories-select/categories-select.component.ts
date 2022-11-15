@@ -1,42 +1,30 @@
-// External modules.
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  Subscription,
-} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
-// Internal modules.
-import {
-  CategoryModels,
-  CategoriesService,
-} from 'src/app/shop/shared/services/categories.service';
-
+import { CategoriesService, Category } from 'src/app/shop/shared/services/categories.service';
 
 @Component({
   selector: 'app-categories-select',
-  templateUrl: './categories-select.component.html',
   styleUrls: ['./categories-select.component.sass'],
+  templateUrl: './categories-select.component.html',
 })
 export class CategoriesSelectComponent implements OnInit {
-  // region ## Properties
-  private items: CategoryModels = [];
-  private selectedID: number = null;
+  public items: Category[] = [];
+  public selectedID: number = null;
+
   private subscriptionToCategories: Subscription;
 
-  // endregion ## Properties
+  constructor(private readonly categoriesService: CategoriesService) {}
 
-  constructor(
-    private categoriesService: CategoriesService,
-  ) {
+  public get selected(): number {
+    return this.selectedID;
   }
 
   // region ## Lifecycle hooks
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.subscriptionToCategories = this.categoriesService.getAll()
       .subscribe(
-        (data: CategoryModels) => {
+        (data: Category[]): void => {
           this.items = data;
         },
         error => {
@@ -46,11 +34,4 @@ export class CategoriesSelectComponent implements OnInit {
   }
 
   // endregion ## Lifecycle hooks
-
-  // region ## Methods
-  public get selected(): number {
-    return this.selectedID;
-  }
-
-  // endregion ## Methods
 }
