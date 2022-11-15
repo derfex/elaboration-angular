@@ -14,17 +14,13 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { CartModule } from './cart/cart.module'
-import { ProductsComponent } from './products/products.component'
+import { ProductsModule } from './products/products.module'
 import { CategoriesSelectModule } from './shared/components/categories-select/categories-select.module'
 import { EmptinessModule } from './shared/components/emptiness/emptiness.module'
 import { ShopComponent } from './shop.component'
 
 @NgModule({
-  declarations: [
-    ShopComponent,
-
-    ProductsComponent,
-  ],
+  declarations: [ShopComponent],
   exports: [ShopComponent],
   imports: [
     BrowserAnimationsModule,
@@ -43,6 +39,7 @@ import { ShopComponent } from './shop.component'
     CartModule,
     CategoriesSelectModule,
     EmptinessModule,
+    ProductsModule,
   ],
   providers: [],
 })
