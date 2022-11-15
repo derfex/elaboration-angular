@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { CartComponent } from './cart/cart.component'
 import { ProductsComponent } from './products/products.component'
 import { CategoriesSelectComponent } from './shared/components/categories-select/categories-select.component'
-import { EmptinessComponent } from './shared/components/emptiness/emptiness.component'
+import { EmptinessModule } from './shared/components/emptiness/emptiness.module'
 import { ShopComponent } from './shop.component'
 
 @NgModule({
@@ -25,7 +25,6 @@ import { ShopComponent } from './shop.component'
 
     CartComponent,
     CategoriesSelectComponent,
-    EmptinessComponent,
     ProductsComponent,
   ],
   exports: [ShopComponent],
@@ -41,6 +40,9 @@ import { ShopComponent } from './shop.component'
     MatSelectModule,
     MatSortModule,
     MatTableModule,
+
+    // For the app.
+    EmptinessModule,
   ],
   providers: [],
 })
