@@ -4,9 +4,7 @@ import { Observable } from 'rxjs'
 import { APIService } from 'src/app/shared/services/api.service'
 import { environment } from 'src/environments/environment'
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CategoriesService {
   constructor(private readonly apiService: APIService) {}
 

@@ -5,6 +5,7 @@ import { CategoriesService, Category } from 'src/app/shop/shared/services/catego
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [CategoriesService],
   selector: 'app-categories-select',
   styleUrls: ['./categories-select.component.sass'],
   templateUrl: './categories-select.component.html',
