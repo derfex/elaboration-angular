@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { MatButtonModule, MatIconModule, MatTableModule } from '@angular/material'
 
-import { EmptinessModule } from '../shared/components/emptiness/emptiness.module'
+import { EmptinessModule } from 'src/app/shop/shared/components/emptiness/emptiness.module'
 import { CartComponent } from './cart.component'
 
 @NgModule({
