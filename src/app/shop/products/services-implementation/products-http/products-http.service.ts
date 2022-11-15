@@ -7,9 +7,7 @@ import { ProductsService } from 'src/app/shop/products/services-implementation/p
 import { ProductTableViewModel } from 'src/app/shop/products/shared/product-table-view.model'
 import { environment } from 'src/environments/environment'
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ProductsHTTPService implements ProductsService {
   constructor(private readonly apiService: APIService) {}
 

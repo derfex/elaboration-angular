@@ -7,7 +7,10 @@ import { ProductTableViewModel } from './products/shared/product-table-view.mode
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CartService],
+  providers: [
+    CartService,
+    ProductsHTTPService,
+  ],
   selector: 'app-shop',
   styleUrls: ['./shop.component.sass'],
   templateUrl: './shop.component.html',
