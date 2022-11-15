@@ -5,9 +5,7 @@ import { ProductsService } from 'src/app/shop/products/services-implementation/p
 import { ProductTableViewModel } from 'src/app/shop/products/shared/product-table-view.model'
 import productsData from './products.data'
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ProductsLocalService implements ProductsService {
   private readonly observable: Observable<ProductTableViewModel[]>
 
