@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
-import { Subscription } from 'rxjs'
+import { Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 
 import { ProductTableViewModel } from 'src/app/shop/products/shared/product-table-view.model'
 import { CartService, ItemsState } from './shared/cart.service'
@@ -17,12 +18,13 @@ export class CartComponent implements OnDestroy, OnInit {
   public displayedColumns: string[] = ['delete', 'number', 'name', 'parent', 'price']
 
   private itemsPrivate: ProductTableViewModel[] = []
-  private subscriptionToCart: Subscription
+
+  private readonly destroy$ = new Subject<void>()
 
   constructor(
     private readonly cartService: CartService,
     private readonly cdr: ChangeDetectorRef,
-    ) {}
+  ) {}
 
   @Input()
   public get items(): ProductTableViewModel[] {
@@ -35,8 +37,9 @@ export class CartComponent implements OnDestroy, OnInit {
   }
 
   // region ## Lifecycle hooks
-  public ngOnInit() {
-    this.subscriptionToCart = this.cartService.state
+  public ngOnInit(): void {
+    this.cartService.state
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
         (payload: ItemsState): void => {
           this.items = payload.items
@@ -48,9 +51,9 @@ export class CartComponent implements OnDestroy, OnInit {
       )
   }
 
-  public ngOnDestroy() {
-    // Unsubscribe to ensure no memory leaks.
-    this.subscriptionToCart.unsubscribe()
+  public ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
   // endregion ## Lifecycle hooks

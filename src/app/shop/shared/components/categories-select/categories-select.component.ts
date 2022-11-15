@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core'
-import { Subscription } from 'rxjs'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core'
+import { Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 
 import { CategoriesService, Category } from 'src/app/shop/shared/services/categories.service'
 
@@ -10,11 +11,11 @@ import { CategoriesService, Category } from 'src/app/shop/shared/services/catego
   styleUrls: ['./categories-select.component.sass'],
   templateUrl: './categories-select.component.html',
 })
-export class CategoriesSelectComponent implements OnInit {
+export class CategoriesSelectComponent implements OnDestroy, OnInit {
   public items: Category[] = []
   public selectedID: number = null
 
-  private subscriptionToCategories: Subscription
+  private readonly destroy$ = new Subject<void>()
 
   constructor(
     private readonly categoriesService: CategoriesService,
@@ -27,7 +28,8 @@ export class CategoriesSelectComponent implements OnInit {
 
   // region ## Lifecycle hooks
   public ngOnInit(): void {
-    this.subscriptionToCategories = this.categoriesService.getAll()
+    this.categoriesService.getAll()
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
         (data: Category[]): void => {
           this.items = data
@@ -37,6 +39,11 @@ export class CategoriesSelectComponent implements OnInit {
           throw error
         },
       )
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
   // endregion ## Lifecycle hooks

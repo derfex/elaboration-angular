@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core'
-import { Subscription } from 'rxjs'
+import { Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 
 import { ProductsHTTPService } from 'src/app/shop/products/services-implementation/products-http/products-http.service'
 import { CartService, ItemsState } from './cart/shared/cart.service'
@@ -21,7 +22,8 @@ export class ShopComponent implements OnDestroy, OnInit {
 
   private keysInCart: Set<number> = new Set()
   private products: ProductTableViewModel[] = []
-  private subscriptionToCart: Subscription
+
+  private readonly destroy$ = new Subject<void>()
 
   constructor(
     private readonly cartService: CartService,
@@ -32,6 +34,7 @@ export class ShopComponent implements OnDestroy, OnInit {
   // region ## Lifecycle hooks
   public ngOnInit(): void {
     this.productsService.getAll()
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
         (data: ProductTableViewModel[]): void => {
           this.products = data
@@ -43,7 +46,8 @@ export class ShopComponent implements OnDestroy, OnInit {
         },
       )
 
-    this.subscriptionToCart = this.cartService.state
+    this.cartService.state
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
         (payload: ItemsState): void => {
           this.productsInCart = payload.items
@@ -58,8 +62,8 @@ export class ShopComponent implements OnDestroy, OnInit {
   }
 
   public ngOnDestroy(): void {
-    // Unsubscribe to ensure no memory leaks.
-    this.subscriptionToCart.unsubscribe()
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
   // endregion ## Lifecycle hooks
