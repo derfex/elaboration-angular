@@ -1,11 +1,12 @@
 import { SelectionModel } from '@angular/cdk/collections'
-import { Component, Input, ViewChild } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core'
 import { MatSort, Sort } from '@angular/material/sort'
 import { MatTableDataSource } from '@angular/material/table'
 
 import { ProductTableViewModel } from './shared/product-table-view.model'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-products',
   styleUrls: ['./products.component.sass'],
   templateUrl: './products.component.html',
