@@ -3,9 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
 
 import { ProductTableViewModel } from 'src/app/shop/products/shared/product-table-view.model'
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CartService {
   private readonly subject = new BehaviorSubject<ItemsState>(defaultState)
 

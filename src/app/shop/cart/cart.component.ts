@@ -7,9 +7,10 @@ import { CartService, ItemsState } from './shared/cart.service'
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [CartService],
   selector: 'app-cart',
-  templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.sass'],
+  templateUrl: './cart.component.html',
 })
 export class CartComponent implements OnDestroy, OnInit {
   public dataSource: MatTableDataSource<ProductTableViewModel> = new MatTableDataSource<ProductTableViewModel>([])

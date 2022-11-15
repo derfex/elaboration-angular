@@ -6,6 +6,7 @@ import { CartService } from './cart/shared/cart.service'
 import { ProductTableViewModel } from './products/shared/product-table-view.model'
 
 @Component({
+  providers: [CartService],
   selector: 'app-shop',
   styleUrls: ['./shop.component.sass'],
   templateUrl: './shop.component.html',
