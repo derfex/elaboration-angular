@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
+import { APIService } from 'src/app/shared/services/api.service'
 import { ProductsHTTPService } from 'src/app/shop/products/services-implementation/products-http/products-http.service'
 import { CartService, ItemsState } from './cart/shared/cart.service'
 import { ProductTableViewModel } from './products/shared/product-table-view.model'
@@ -9,6 +10,7 @@ import { ProductTableViewModel } from './products/shared/product-table-view.mode
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
+    APIService,
     CartService,
     ProductsHTTPService,
   ],

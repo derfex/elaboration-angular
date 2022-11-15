@@ -2,11 +2,15 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
+import { APIService } from 'src/app/shared/services/api.service'
 import { CategoriesService, Category } from 'src/app/shop/shared/services/categories.service'
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CategoriesService],
+  providers: [
+    APIService,
+    CategoriesService,
+  ],
   selector: 'app-categories-select',
   styleUrls: ['./categories-select.component.sass'],
   templateUrl: './categories-select.component.html',
