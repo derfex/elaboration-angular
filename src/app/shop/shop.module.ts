@@ -1,4 +1,3 @@
-// External modules.
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -14,15 +13,11 @@ import {
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Main component.
-import { ShopComponent } from './shop.component';
-
-// Components.
 import { CartComponent } from './cart/cart.component';
+import { ProductsComponent } from './products/products.component';
 import { CategoriesSelectComponent } from './shared/components/categories-select/categories-select.component';
 import { EmptinessComponent } from './shared/components/emptiness/emptiness.component';
-import { ProductsComponent } from './products/products.component';
-
+import { ShopComponent } from './shop.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +28,7 @@ import { ProductsComponent } from './products/products.component';
     EmptinessComponent,
     ProductsComponent,
   ],
+  exports: [ShopComponent],
   imports: [
     BrowserAnimationsModule,
     CommonModule,
@@ -46,10 +42,6 @@ import { ProductsComponent } from './products/products.component';
     MatSortModule,
     MatTableModule,
   ],
-  exports: [
-    ShopComponent,
-  ],
   providers: [],
 })
-export class ShopModule {
-}
+export class ShopModule {}

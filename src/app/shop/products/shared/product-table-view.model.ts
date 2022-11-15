@@ -1,11 +1,9 @@
-export interface IProductTableViewModel {
-  id: number;
-  name: string;
-  parent: {
-    id: number;
-    name: string;
+export interface ProductTableViewModel {
+  readonly id: number;
+  readonly name: string;
+  readonly parent: {
+    readonly id: number;
+    readonly name: string;
   };
-  price: number;
+  readonly price: number;
 }
-
-export type ProductModels = IProductTableViewModel[];

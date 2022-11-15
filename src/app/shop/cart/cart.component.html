@@ -12,8 +12,8 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
         <button
-          mat-icon-button
           (click)="deleteItem(row.id)"
+          mat-icon-button
           title="Delete item"
         >
           <mat-icon
@@ -56,5 +56,4 @@
 <app-emptiness
   *ngIf="!hasDisplayedData()"
   text="Add products to the cart"
->
-</app-emptiness>
+></app-emptiness>

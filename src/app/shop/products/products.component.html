@@ -1,27 +1,27 @@
 <div *ngIf="hasDisplayedData()">
   <mat-table
     [dataSource]="dataSource"
-    matSort
     (matSortChange)="sortData($event)"
+    matSort
     class="mat-elevation-z8"
   >
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef>
         <mat-checkbox
-          (change)="$event ? masterToggle() : null"
           [checked]="selection.hasValue() && isAllSelected()"
           [indeterminate]="selection.hasValue() && !isAllSelected()"
           [aria-label]="checkboxLabel()"
+          (change)="$event ? masterToggle() : null"
         >
         </mat-checkbox>
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
         <mat-checkbox
-          (click)="$event.stopPropagation()"
-          (change)="$event ? selection.toggle(row) : null"
           [checked]="selection.isSelected(row)"
           [aria-label]="checkboxLabel(row)"
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
         >
         </mat-checkbox>
       </mat-cell>
@@ -40,7 +40,7 @@
     <ng-container matColumnDef="name">
       <mat-header-cell
         *matHeaderCellDef
-        mat-sort-header
+        mat-sort-header="name"
       >
         Name
       </mat-header-cell>
@@ -57,7 +57,7 @@
     <ng-container matColumnDef="price">
       <mat-header-cell
         *matHeaderCellDef
-        mat-sort-header
+        mat-sort-header="price"
       >
         Price
       </mat-header-cell>
