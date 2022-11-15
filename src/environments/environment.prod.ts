@@ -1,4 +1,4 @@
-const root = 'https://ssdev.superagent.ru/TestApp/';
+const root = 'https://ssdev.superagent.ru/TestApp/'
 
 export const environment = {
   production: true,
@@ -11,4 +11,4 @@ export const environment = {
       getAll: root + 'Values/GetParents',
     },
   },
-};
+}

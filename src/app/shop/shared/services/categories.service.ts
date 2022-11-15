@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { Observable } from 'rxjs'
 
-import { APIService } from 'src/app/shared/services/api.service';
-import { environment } from 'src/environments/environment';
+import { APIService } from 'src/app/shared/services/api.service'
+import { environment } from 'src/environments/environment'
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +12,11 @@ export class CategoriesService {
 
   public getAll(): Observable<Category[]> {
     return this.apiService
-      .get(environment.API.categories.getAll);
+      .get(environment.API.categories.getAll)
   }
 }
 
 export interface Category {
-  readonly id: number;
-  readonly name: string;
+  readonly id: number
+  readonly name: string
 }

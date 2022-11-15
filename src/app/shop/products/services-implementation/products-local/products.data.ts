@@ -1,4 +1,4 @@
-import { ProductsModel } from './products.model';
+import { ProductsModel } from './products.model'
 
 const products = new ProductsModel();
 
@@ -18,7 +18,7 @@ const products = new ProductsModel();
         name: item[1],
       },
       price: item[2],
-    });
-  });
+    })
+  })
 
-export default products.getAll();
+export default products.getAll()

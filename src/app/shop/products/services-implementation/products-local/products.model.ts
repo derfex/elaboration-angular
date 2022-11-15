@@ -1,20 +1,20 @@
 export class ProductsModel {
-  counter = 0;
-  items;
+  counter = 0
+  items
 
   constructor() {
-    this.items = [];
+    this.items = []
   }
 
   addProduct(data) {
-    const id = ++this.counter;
+    const id = ++this.counter
     this.items.push({
       id,
       ...data,
-    });
+    })
   }
 
   getAll() {
-    return this.items;
+    return this.items
   }
 }
