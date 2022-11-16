@@ -1,22 +1,11 @@
-import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
-import { FormsModule } from '@angular/forms'
-import {
-  MatButtonModule,
-  MatCheckboxModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatSelectModule,
-  MatSortModule,
-  MatTableModule,
-} from '@angular/material'
+import { MatButtonModule } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { CartModule } from './cart/cart.module'
 import { ProductsModule } from './products/products.module'
 import { CategoriesSelectModule } from './shared/components/categories-select/categories-select.module'
-import { EmptinessModule } from './shared/components/emptiness/emptiness.module'
 import { ShopComponent } from './shop.component'
 
 @NgModule({
@@ -24,21 +13,12 @@ import { ShopComponent } from './shop.component'
   exports: [ShopComponent],
   imports: [
     BrowserAnimationsModule,
-    CommonModule,
-    FormsModule,
     HttpClientModule,
     MatButtonModule,
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatSelectModule,
-    MatSortModule,
-    MatTableModule,
 
     // For the app.
     CartModule,
     CategoriesSelectModule,
-    EmptinessModule,
     ProductsModule,
   ],
   providers: [],
